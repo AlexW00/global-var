@@ -3,6 +3,9 @@ import { getVar, setVar } from "./DataManager";
 
 const app = express();
 
+// get a variable value
+// nested variables can be accessed by using dot notation
+// example: /api/getVar?name=foo.bar
 app.get("/api/getVar", (req, res) => {
 	const name = req.query.name;
 	if (!name) {
@@ -19,6 +22,9 @@ app.get("/api/getVar", (req, res) => {
 	else res.send(value);
 });
 
+// set a variable value
+// nested variables can be accessed by using dot notation
+// example: /api/setVar?name=foo.bar&value=123
 app.post("/api/setVar", (req, res) => {
 	const name = req.query.name;
 	if (!name) {
@@ -38,6 +44,8 @@ app.post("/api/setVar", (req, res) => {
 	setVar(name, value);
 	res.send("OK");
 });
+
+// ~~~~~~~~~~~~~~~ Errors ~~~~~~~~~~~~~~~ //
 
 function missingQueryParam(name: string, res: express.Response) {
 	const message = `Missing query parameter: ${name}`;
